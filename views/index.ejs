@@ -12,12 +12,12 @@
   <div class="min-h-screen flex flex-col items-center pt-12">
     <div class="w-full max-w-2xl px-4">
       <%- include(`header.ejs`) %>
-      <form class="bg-white shadow-2xl rounded-xl p-8 space-y-6 mb-8">
+      <form class="bg-white shadow-2xl rounded-xl p-8 space-y-6 mb-8" action="/todos" method="post">
         <div class="flex flex-col space-y-4">
           <label class="text-lg font-medium text-gray-700">Add new Task</label>
-          <input type="text" placeholder="What's next?" required class="px-4 py-3 text-gray-700 border border-gray-300 bg-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200" />
+          <input type="text" name="title" placeholder="What's next?" required class="px-4 py-3 text-gray-700 border border-gray-300 bg-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200" />
           <label class="text-lg font-medium text-gray-700">Add due date</label>
-          <input type="date" class="px-4 py-3 text-gray-700 border border-gray-300 bg-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200" />
+          <input type="date" name="dueDate" class="px-4 py-3 text-gray-700 border border-gray-300 bg-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200" />
           <button type="submit" class="mt-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:from-blue-600 hover:to-blue-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transform hover:scale-[1.02]">
             Add Task
           </button>
