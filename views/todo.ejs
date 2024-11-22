@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body class="font-sans">
+  <table class="w-full border-collapse mb-4">
+    <% for (var i = 0; i < getTodos.length; i++) { %>
+    <tr>
+      <th class="border p-2 bg-gray-200">
+        <%= `Todo - ` + (i + 1) %>
+      </th>
+      <td class="border p-2">
+        <%= getTodos[i].title %>
+      </td>
+    </tr>
+    <% } %>
+  </table>
+</body>
+
+</html>
