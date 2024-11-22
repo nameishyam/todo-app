@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
       });
     }
     static async deleteTodo(id) {
-      await Todo.destroy({
+      await this.destroy({
         where: {
           id: id,
         },
@@ -46,7 +46,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "Todo",
-    },
+    }
   );
   return Todo;
 };

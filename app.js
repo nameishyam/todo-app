@@ -67,8 +67,7 @@ app.delete(`/todos/:id`, async (request, response) => {
   console.log(`Todo deleted`, request.params.id);
   try {
     await Todo.deleteTodo(request.params.id);
-    const remainingTodos = await Todo.findAll();
-    return response.status(200).json(remainingTodos);
+    return response.json({ success: true });
   } catch (error) {
     console.log(error);
     return response.status(422).json({ error: error.message });
