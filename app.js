@@ -3,10 +3,15 @@
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
-app.use(bodyParser.json());
 const path = require("path");
+var csrf = require("csurf");
+var cookieParser = require("cookie-parser");
 const { Todo } = require("./models");
+
 app.use(express.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(cookieParser("im the ceo, bitch!"));
+app.use(csrf({ cookie: true }));
 
 app.set("view engine", "ejs");
 
@@ -15,6 +20,7 @@ app.get(`/`, async (request, response) => {
   if (request.accepts(`html`)) {
     response.render(`index`, {
       getTodos,
+      csrfToken: request.csrfToken(),
     });
   } else {
     response.json({
