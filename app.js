@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-/* eslint-disable no-unused-vars */
+
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
@@ -39,7 +39,7 @@ app.get(`/todos`, async (request, response) => {
 app.post(`/todos`, async (request, response) => {
   console.log(`Todo created`, request.body);
   try {
-    const todo = await Todo.addTodo({
+    await Todo.addTodo({
       title: request.body.title,
       dueDate: request.body.dueDate,
       completed: false,
