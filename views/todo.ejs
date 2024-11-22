@@ -27,9 +27,9 @@
         <ul>
           <% for (var i = 0; i < getTodos.length; i++) { %>
           <% if (formatDate(getTodos[i].dueDate) < getCurrentDate()) { %>
-          <li class="flex items-center border-b border-gray-100 last:border-none py-4">
+          <li class="flex items-center border-b border-gray-100 last:border-none py-4 hover:bg-gray-50 rounded-lg">
             <!-- Checkbox -->
-            <label class="flex items-center justify-center h-full">
+            <label class="flex items-center justify-center h-full mr-4">
               <input type="checkbox" class="peer sr-only">
               <div class="relative flex items-center justify-center w-5 h-5 border-2 border-gray-300 rounded 
                     peer-checked:bg-blue-600 
@@ -53,18 +53,20 @@
                     peer-active:scale-90
                     cursor-pointer"></div>
             </label>
-            <!-- Task Number -->
-            <span class="text-left text-gray-700 w-32 font-medium">
-              <%= `Task ${i + 1}` %>
-            </span>
-            <!-- Task Title -->
-            <span class="text-gray-700">
-              <%= getTodos[i].title %>
-            </span>
-            <!-- Due Date -->
-            <span class="text-red-500">
-              <%= getTodos[i].dueDate %>
-            </span>
+            <!-- Task Content -->
+            <div class="flex-1">
+              <div class="flex justify-between items-center">
+                <!-- Task Title -->
+                <span class="text-gray-700 font-medium">
+                  <%= getTodos[i].title %>
+                </span>
+                <!-- Due Date -->
+                <span class="text-sm text-red-500">
+                  <%= getTodos[i].dueDate %>
+                </span>
+              </div>
+              <!-- Optional: Add task description or additional info here -->
+            </div>
           </li>
           <% } %>
           <% } %>
@@ -77,9 +79,9 @@
         <ul>
           <% for (var i = 0; i < getTodos.length; i++) { %>
           <% if (formatDate(getTodos[i].dueDate) === getCurrentDate()) { %>
-          <li class="flex items-center border-b border-gray-100 last:border-none py-4">
+          <li class="flex items-center border-b border-gray-100 last:border-none py-4 hover:bg-gray-50 rounded-lg">
             <!-- Checkbox -->
-            <label class="flex items-center justify-center h-full">
+            <label class="flex items-center justify-center h-full mr-4">
               <input type="checkbox" class="peer sr-only">
               <div class="relative flex items-center justify-center w-5 h-5 border-2 border-gray-300 rounded 
                     peer-checked:bg-blue-600 
@@ -103,18 +105,20 @@
                     peer-active:scale-90
                     cursor-pointer"></div>
             </label>
-            <!-- Task Number -->
-            <span class="text-left text-gray-700 w-32 font-medium">
-              <%= `Task ${i + 1}` %>
-            </span>
-            <!-- Task Title -->
-            <span class="text-gray-700">
-              <%= getTodos[i].title %>
-            </span>
-            <!-- Due Date -->
-            <span class="text-blue-500">
-              <%= getTodos[i].dueDate %>
-            </span>
+            <!-- Task Content -->
+            <div class="flex-1">
+              <div class="flex justify-between items-center">
+                <!-- Task Title -->
+                <span class="text-gray-700 font-medium">
+                  <%= getTodos[i].title %>
+                </span>
+                <!-- Due Date -->
+                <span class="text-sm text-blue-500">
+                  <%= getTodos[i].dueDate %>
+                </span>
+              </div>
+              <!-- Optional: Add task description or additional info here -->
+            </div>
           </li>
           <% } %>
           <% } %>
@@ -127,9 +131,9 @@
         <ul>
           <% for (var i = 0; i < getTodos.length; i++) { %>
           <% if (formatDate(getTodos[i].dueDate) > getCurrentDate()) { %>
-          <li class="flex items-center border-b border-gray-100 last:border-none py-4">
+          <li class="flex items-center border-b border-gray-100 last:border-none py-4 hover:bg-gray-50 rounded-lg">
             <!-- Checkbox -->
-            <label class="flex items-center justify-center h-full">
+            <label class="flex items-center justify-center h-full mr-4">
               <input type="checkbox" class="peer sr-only">
               <div class="relative flex items-center justify-center w-5 h-5 border-2 border-gray-300 rounded 
                     peer-checked:bg-blue-600 
@@ -153,18 +157,20 @@
                     peer-active:scale-90
                     cursor-pointer"></div>
             </label>
-            <!-- Task Number -->
-            <span class="text-left text-gray-700 w-32 font-medium">
-              <%= `Task ${i + 1}` %>
-            </span>
-            <!-- Task Title -->
-            <span class="text-gray-700">
-              <%= getTodos[i].title %>
-            </span>
-            <!-- Due Date -->
-            <span class="text-green-500">
-              <%= getTodos[i].dueDate %>
-            </span>
+            <!-- Task Content -->
+            <div class="flex-1">
+              <div class="flex justify-between items-center">
+                <!-- Task Title -->
+                <span class="text-gray-700 font-medium">
+                  <%= getTodos[i].title %>
+                </span>
+                <!-- Due Date -->
+                <span class="text-sm text-green-500">
+                  <%= getTodos[i].dueDate %>
+                </span>
+              </div>
+              <!-- Optional: Add task description or additional info here -->
+            </div>
           </li>
           <% } %>
           <% } %>
