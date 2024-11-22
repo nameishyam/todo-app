@@ -9,24 +9,83 @@
 </head>
 
 <body class="font-sans">
-  <div class="mt-8 mb-8 w-full">
+  <div class="w-full mb-8">
     <h1 class="text-2xl font-bold text-gray-800 mb-6">My Tasks</h1>
-    <div class="bg-white shadow-xl rounded-xl overflow-hidden">
-      <table class="w-full">
-        <% for (var i = 0; i < getTodos.length; i++) { %>
-        <tr class="hover:bg-gray-50 transition-colors duration-200 border-b border-gray-100 last:border-none">
-          <td class="px-6 py-4 w-12">
-            <input type="checkbox" class="w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
-          </td>
-          <th class="px-6 py-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-medium text-left w-1/3">
-            <%= `Task ${i + 1}` %>
-          </th>
-          <td class="px-6 py-4 text-gray-700 font-medium <%= getTodos[i].completed ? 'line-through text-gray-400' : '' %>">
-            <%= getTodos[i].title %>
-          </td>
-        </tr>
-        <% } %>
-      </table>
+    <div class="space-y-6">
+      <!-- Overdue Tasks -->
+      <div class="bg-white shadow-2xl rounded-xl p-6">
+        <h2 class="text-xl font-medium text-red-600 mb-4">Over Due Tasks</h2>
+        <table class="w-full">
+          <% for (var i = 0; i < getTodos.length; i++) { %>
+          <tr class="border-b border-gray-100 last:border-none">
+            <% if (getTodos[i].dueDate < new Date().toISOString()) { %>
+            <td class="py-4 w-12">
+              <input type="checkbox" class="w-4 h-4 rounded border-gray-300 focus:ring-2 focus:ring-blue-500">
+            </td>
+            <th class="py-4 text-left text-gray-700 w-32 font-medium">
+              <%= `Task ${i + 1}` %>
+            </th>
+            <td class="py-4 text-gray-700">
+              <%= getTodos[i].title %>
+            </td>
+            <td class="py-4 text-red-500">
+              <%= getTodos[i].dueDate %>
+            </td>
+            <% } %>
+          </tr>
+          <% } %>
+        </table>
+      </div>
+
+      <!-- Due Today Tasks -->
+      <div class="bg-white shadow-2xl rounded-xl p-6">
+        <h2 class="text-xl font-medium text-blue-600 mb-4">Due Today Tasks</h2>
+        <table class="w-full">
+          <% for (var i = 0; i < getTodos.length; i++) { %>
+          <tr class="border-b border-gray-100 last:border-none">
+            <% if (getTodos[i].dueDate === new Date().toISOString()) { %>
+            <td class="py-4 w-12">
+              <input type="checkbox" class="w-4 h-4 rounded border-gray-300 focus:ring-2 focus:ring-blue-500">
+            </td>
+            <th class="py-4 text-left text-gray-700 w-32 font-medium">
+              <%= `Task ${i + 1}` %>
+            </th>
+            <td class="py-4 text-gray-700">
+              <%= getTodos[i].title %>
+            </td>
+            <td class="py-4 text-blue-500">
+              <%= getTodos[i].dueDate %>
+            </td>
+            <% } %>
+          </tr>
+          <% } %>
+        </table>
+      </div>
+
+      <!-- Due Later Tasks -->
+      <div class="bg-white shadow-2xl rounded-xl p-6">
+        <h2 class="text-xl font-medium text-green-600 mb-4">Due Later Tasks</h2>
+        <table class="w-full">
+          <% for (var i = 0; i < getTodos.length; i++) { %>
+          <tr class="border-b border-gray-100 last:border-none">
+            <% if (getTodos[i].dueDate > new Date().toISOString()) { %>
+            <td class="py-4 w-12">
+              <input type="checkbox" class="w-4 h-4 rounded border-gray-300 focus:ring-2 focus:ring-blue-500">
+            </td>
+            <th class="py-4 text-left text-gray-700 w-32 font-medium">
+              <%= `Task ${i + 1}` %>
+            </th>
+            <td class="py-4 text-gray-700">
+              <%= getTodos[i].title %>
+            </td>
+            <td class="py-4 text-green-500">
+              <%= getTodos[i].dueDate %>
+            </td>
+            <% } %>
+          </tr>
+          <% } %>
+        </table>
+      </div>
     </div>
   </div>
 </body>
