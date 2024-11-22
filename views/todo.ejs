@@ -24,145 +24,151 @@
       <!-- Overdue Tasks -->
       <div class="bg-white shadow-2xl rounded-xl p-6">
         <h2 class="text-xl font-medium text-red-600 mb-4">Over Due Tasks</h2>
-        <table class="w-full">
+        <ul>
           <% for (var i = 0; i < getTodos.length; i++) { %>
-          <tr class="border-b border-gray-100 last:border-none">
-            <% if (formatDate(getTodos[i].dueDate) < getCurrentDate()) { %>
-            <td class="py-4 w-12 align-middle">
-              <label class="flex items-center justify-center h-full">
-                <input type="checkbox" class="peer sr-only">
-                <div class="relative flex items-center justify-center w-5 h-5 border-2 border-gray-300 rounded 
-                  peer-checked:bg-blue-600 
-                  peer-checked:border-blue-600 
-                  transition-all duration-200 
-                  hover:border-blue-400
-                  active:scale-90
-                  after:content-[''] 
-                  after:absolute
-                  after:w-2 
-                  after:h-3.5 
-                  after:border-white 
-                  after:border-r-2 
-                  after:border-b-2 
-                  after:transform 
-                  after:rotate-45 
-                  after:opacity-0 
-                  after:z-10
-                  after:translate-y-[-2px]
-                  peer-checked:after:opacity-100
-                  peer-active:scale-90
-                  cursor-pointer"></div>
-              </label>
-            </td>
-            <th class="py-4 text-left text-gray-700 w-32 font-medium">
+          <% if (formatDate(getTodos[i].dueDate) < getCurrentDate()) { %>
+          <li class="flex items-center border-b border-gray-100 last:border-none py-4">
+            <!-- Checkbox -->
+            <label class="flex items-center justify-center h-full">
+              <input type="checkbox" class="peer sr-only">
+              <div class="relative flex items-center justify-center w-5 h-5 border-2 border-gray-300 rounded 
+                    peer-checked:bg-blue-600 
+                    peer-checked:border-blue-600 
+                    transition-all duration-200 
+                    hover:border-blue-400
+                    active:scale-90
+                    after:content-[''] 
+                    after:absolute
+                    after:w-2 
+                    after:h-3.5 
+                    after:border-white 
+                    after:border-r-2 
+                    after:border-b-2 
+                    after:transform 
+                    after:rotate-45 
+                    after:opacity-0 
+                    after:z-10
+                    after:translate-y-[-2px]
+                    peer-checked:after:opacity-100
+                    peer-active:scale-90
+                    cursor-pointer"></div>
+            </label>
+            <!-- Task Number -->
+            <span class="text-left text-gray-700 w-32 font-medium">
               <%= `Task ${i + 1}` %>
-            </th>
-            <td class="py-4 text-gray-700">
+            </span>
+            <!-- Task Title -->
+            <span class="text-gray-700">
               <%= getTodos[i].title %>
-            </td>
-            <td class="py-4 text-red-500">
+            </span>
+            <!-- Due Date -->
+            <span class="text-red-500">
               <%= getTodos[i].dueDate %>
-            </td>
-            <% } %>
-          </tr>
+            </span>
+          </li>
           <% } %>
-        </table>
+          <% } %>
+        </ul>
       </div>
 
       <!-- Due Today Tasks -->
       <div class="bg-white shadow-2xl rounded-xl p-6">
         <h2 class="text-xl font-medium text-blue-600 mb-4">Due Today Tasks</h2>
-        <table class="w-full">
+        <ul>
           <% for (var i = 0; i < getTodos.length; i++) { %>
-          <tr class="border-b border-gray-100 last:border-none">
-            <% if (formatDate(getTodos[i].dueDate) === getCurrentDate()) { %>
-            <td class="py-4 w-12 align-middle">
-              <label class="flex items-center justify-center h-full">
-                <input type="checkbox" class="peer sr-only">
-                <div class="relative flex items-center justify-center w-5 h-5 border-2 border-gray-300 rounded 
-                  peer-checked:bg-blue-600 
-                  peer-checked:border-blue-600 
-                  transition-all duration-200 
-                  hover:border-blue-400
-                  active:scale-90
-                  after:content-[''] 
-                  after:absolute
-                  after:w-2 
-                  after:h-3.5 
-                  after:border-white 
-                  after:border-r-2 
-                  after:border-b-2 
-                  after:transform 
-                  after:rotate-45 
-                  after:opacity-0 
-                  after:z-10
-                  after:translate-y-[-2px]
-                  peer-checked:after:opacity-100
-                  peer-active:scale-90
-                  cursor-pointer"></div>
-              </label>
-            </td>
-            <th class="py-4 text-left text-gray-700 w-32 font-medium">
+          <% if (formatDate(getTodos[i].dueDate) === getCurrentDate()) { %>
+          <li class="flex items-center border-b border-gray-100 last:border-none py-4">
+            <!-- Checkbox -->
+            <label class="flex items-center justify-center h-full">
+              <input type="checkbox" class="peer sr-only">
+              <div class="relative flex items-center justify-center w-5 h-5 border-2 border-gray-300 rounded 
+                    peer-checked:bg-blue-600 
+                    peer-checked:border-blue-600 
+                    transition-all duration-200 
+                    hover:border-blue-400
+                    active:scale-90
+                    after:content-[''] 
+                    after:absolute
+                    after:w-2 
+                    after:h-3.5 
+                    after:border-white 
+                    after:border-r-2 
+                    after:border-b-2 
+                    after:transform 
+                    after:rotate-45 
+                    after:opacity-0 
+                    after:z-10
+                    after:translate-y-[-2px]
+                    peer-checked:after:opacity-100
+                    peer-active:scale-90
+                    cursor-pointer"></div>
+            </label>
+            <!-- Task Number -->
+            <span class="text-left text-gray-700 w-32 font-medium">
               <%= `Task ${i + 1}` %>
-            </th>
-            <td class="py-4 text-gray-700">
+            </span>
+            <!-- Task Title -->
+            <span class="text-gray-700">
               <%= getTodos[i].title %>
-            </td>
-            <td class="py-4 text-blue-500">
+            </span>
+            <!-- Due Date -->
+            <span class="text-blue-500">
               <%= getTodos[i].dueDate %>
-            </td>
-            <% } %>
-          </tr>
+            </span>
+          </li>
           <% } %>
-        </table>
+          <% } %>
+        </ul>
       </div>
 
       <!-- Due Later Tasks -->
       <div class="bg-white shadow-2xl rounded-xl p-6">
         <h2 class="text-xl font-medium text-green-600 mb-4">Due Later Tasks</h2>
-        <table class="w-full">
+        <ul>
           <% for (var i = 0; i < getTodos.length; i++) { %>
-          <tr class="border-b border-gray-100 last:border-none">
-            <% if (formatDate(getTodos[i].dueDate) > getCurrentDate()) { %>
-            <td class="py-4 w-12 align-middle">
-              <label class="flex items-center justify-center h-full">
-                <input type="checkbox" class="peer sr-only">
-                <div class="relative flex items-center justify-center w-5 h-5 border-2 border-gray-300 rounded 
-                  peer-checked:bg-blue-600 
-                  peer-checked:border-blue-600 
-                  transition-all duration-200 
-                  hover:border-blue-400
-                  active:scale-90
-                  after:content-[''] 
-                  after:absolute
-                  after:w-2 
-                  after:h-3.5 
-                  after:border-white 
-                  after:border-r-2 
-                  after:border-b-2 
-                  after:transform 
-                  after:rotate-45 
-                  after:opacity-0 
-                  after:z-10
-                  after:translate-y-[-2px]
-                  peer-checked:after:opacity-100
-                  peer-active:scale-90
-                  cursor-pointer"></div>
-              </label>
-            </td>
-            <th class="py-4 text-left text-gray-700 w-32 font-medium">
+          <% if (formatDate(getTodos[i].dueDate) > getCurrentDate()) { %>
+          <li class="flex items-center border-b border-gray-100 last:border-none py-4">
+            <!-- Checkbox -->
+            <label class="flex items-center justify-center h-full">
+              <input type="checkbox" class="peer sr-only">
+              <div class="relative flex items-center justify-center w-5 h-5 border-2 border-gray-300 rounded 
+                    peer-checked:bg-blue-600 
+                    peer-checked:border-blue-600 
+                    transition-all duration-200 
+                    hover:border-blue-400
+                    active:scale-90
+                    after:content-[''] 
+                    after:absolute
+                    after:w-2 
+                    after:h-3.5 
+                    after:border-white 
+                    after:border-r-2 
+                    after:border-b-2 
+                    after:transform 
+                    after:rotate-45 
+                    after:opacity-0 
+                    after:z-10
+                    after:translate-y-[-2px]
+                    peer-checked:after:opacity-100
+                    peer-active:scale-90
+                    cursor-pointer"></div>
+            </label>
+            <!-- Task Number -->
+            <span class="text-left text-gray-700 w-32 font-medium">
               <%= `Task ${i + 1}` %>
-            </th>
-            <td class="py-4 text-gray-700">
+            </span>
+            <!-- Task Title -->
+            <span class="text-gray-700">
               <%= getTodos[i].title %>
-            </td>
-            <td class="py-4 text-green-500">
+            </span>
+            <!-- Due Date -->
+            <span class="text-green-500">
               <%= getTodos[i].dueDate %>
-            </td>
-            <% } %>
-          </tr>
+            </span>
+          </li>
           <% } %>
-        </table>
+          <% } %>
+        </ul>
       </div>
     </div>
   </div>
