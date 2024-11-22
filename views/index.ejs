@@ -5,18 +5,18 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Document</title>
-  <link href="./css/styles.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 
-<body>
+<body class="font-sans">
   <%- include(`header.ejs`) %>
-  <table>
+  <table class="w-full border-collapse">
     <% for (var i = 0; i < getTodos.length; i++) { %>
     <tr>
-      <th>
+      <th class="border p-2 bg-gray-200">
         <%= `Todo - ` + (i + 1) %>
       </th>
-      <td>
+      <td class="border p-2">
         <%= getTodos[i].title %>
       </td>
     </tr>
