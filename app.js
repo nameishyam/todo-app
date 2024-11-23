@@ -12,6 +12,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser("im the ceo, bitch!"));
 app.use(csrf({ cookie: true }));
+app.use(express.static(path.join(__dirname, `public`)));
 
 app.set("view engine", "ejs");
 
@@ -28,8 +29,6 @@ app.get(`/`, async (request, response) => {
     });
   }
 });
-
-app.use(express.static(path.join(__dirname, `public`)));
 
 app.get(`/todos`, async (request, response) => {
   console.log(`Todo list`);

@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 "use strict";
-const { Model } = require("sequelize");
+const { Model, Op } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Todo extends Model {
     /**
@@ -38,6 +38,39 @@ module.exports = (sequelize, DataTypes) => {
       return this.completed
         ? this.update({ completed: false })
         : this.update({ completed: true });
+    }
+
+    static async dueToday() {
+      const dueTodayTodos = await this.findAll({
+        where: {
+          dueDate: {
+            [Op.eq]: new Date().toISOString().split("T")[0],
+          },
+        },
+      });
+      return dueTodayTodos;
+    }
+
+    static async dueLater() {
+      const dueLaterTodos = await this.findAll({
+        where: {
+          dueDate: {
+            [Op.gt]: new Date().toISOString().split("T")[0],
+          },
+        },
+      });
+      return dueLaterTodos;
+    }
+
+    static async dueBefore() {
+      const dueBeforeTodos = await this.findAll({
+        where: {
+          dueDate: {
+            [Op.lt]: new Date().toISOString().split("T")[0],
+          },
+        },
+      });
+      return dueBeforeTodos;
     }
   }
   Todo.init(
