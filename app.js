@@ -6,7 +6,7 @@ const bodyParser = require("body-parser");
 const path = require("path");
 var csrf = require("csurf");
 var cookieParser = require("cookie-parser");
-const { Todo } = require("./models");
+const { Todo, User } = require("./models");
 
 app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -42,7 +42,21 @@ app.get(`/todos`, async (request, response) => {
 });
 
 app.get(`/signup`, (request, response) => {
-  response.render(`signup`);
+  response.render(`signup`, { csrfToken: request.csrfToken() });
+});
+
+app.post(`/users`, async (request, response) => {
+  try {
+    const user = await User.create({
+      firstName: request.body.firstName,
+      lastName: request.body.lastName,
+      email: request.body.email,
+      password: request.body.password,
+    });
+    response.redirect(`/`);
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 app.post(`/todos`, async (request, response) => {
