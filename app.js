@@ -42,7 +42,7 @@ app.get(`/todos`, async (request, response) => {
 });
 
 app.get(`/signup`, (request, response) => {
-  response.redirect(`signup`);
+  response.render(`signup`);
 });
 
 app.post(`/todos`, async (request, response) => {
