@@ -8,9 +8,12 @@ const passport = require("passport");
 const connectEnsureLogin = require("connect-ensure-login");
 const localStrategy = require("passport-local");
 const session = require("express-session");
+const bcrypt = require("bcrypt");
 var csrf = require("csurf");
 var cookieParser = require("cookie-parser");
 const { Todo, User } = require("./models");
+
+const saltRounds = 10;
 
 app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -36,7 +39,7 @@ passport.use(
       usernameField: `email`,
       passwordField: `password`,
     },
-    (username, passowrd, done) => {
+    (username, password, done) => {
       User.findOne({ where: { email: username, password: password } })
         .then((user) => {
           return done(null, user);
@@ -113,12 +116,14 @@ app.get(`/signup`, (request, response) => {
 });
 
 app.post(`/users`, async (request, response) => {
+  const hashedPwd = await bcrypt.hash(request.body.password, saltRounds);
+  console.log(hashedPwd);
   try {
     const user = await User.create({
       firstName: request.body.firstName,
       lastName: request.body.lastName,
       email: request.body.email,
-      password: request.body.password,
+      password: hashedPwd,
     });
     request.login(user, (error) => {
       if (error) {
