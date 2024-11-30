@@ -15,20 +15,26 @@ module.exports = (sequelize, DataTypes) => {
       });
     }
 
-    static async getAllTodos() {
-      return this.findAll();
+    static async getAllTodos(userId) {
+      return await this.findAll({
+        where: {
+          userId: userId,
+        },
+      });
     }
-    static addTodo({ title, dueDate }) {
+    static addTodo({ title, dueDate, userId }) {
       return this.create({
         title,
         dueDate,
         completed: false,
+        userId,
       });
     }
-    static async deleteTodo(id) {
+    static async deleteTodo(id, userId) {
       await this.destroy({
         where: {
-          id: id,
+          id,
+          userId,
         },
       });
     }

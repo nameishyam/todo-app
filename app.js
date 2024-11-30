@@ -12,7 +12,6 @@ const bcrypt = require("bcrypt");
 var csrf = require("csurf");
 var cookieParser = require("cookie-parser");
 const { Todo, User } = require("./models");
-const { nextTick } = require("process");
 
 const saltRounds = 10;
 
@@ -75,16 +74,12 @@ passport.deserializeUser((id, done) => {
 app.set("view engine", "ejs");
 
 app.get(`/`, async (request, response) => {
-  const getTodos = await Todo.getAllTodos();
   if (request.accepts(`html`)) {
     response.render(`index`, {
-      getTodos,
       csrfToken: request.csrfToken(),
     });
   } else {
-    response.json({
-      getTodos,
-    });
+    response.json({});
   }
 });
 
@@ -92,7 +87,8 @@ app.get(
   `/todos`,
   connectEnsureLogin.ensureLoggedIn(),
   async (request, response) => {
-    const getTodos = await Todo.getAllTodos();
+    const loggedInUser = request.user.id;
+    const getTodos = await Todo.getAllTodos(loggedInUser);
     if (request.accepts(`html`)) {
       response.render(`todos`, {
         getTodos,
@@ -106,16 +102,17 @@ app.get(
   }
 );
 
-app.get(`/todos`, async (request, response) => {
-  console.log(`Todo list`);
-  try {
-    const todos = await Todo.getAllTodos();
-    return response.status(200).json(todos);
-  } catch (error) {
-    console.log(error);
-    return response.status(422).json({ error: error.message });
-  }
-});
+// app.get(`/todos`, async (request, response) => {
+//   console.log(`Todo list`);
+//   const loggedInUser = request.user.id;
+//   try {
+//     const todos = await Todo.getAllTodos(loggedInUser);
+//     return response.status(200).json(todos);
+//   } catch (error) {
+//     console.log(error);
+//     return response.status(422).json({ error: error.message });
+//   }
+// });
 
 app.get(`/signup`, (request, response) => {
   response.render(`signup`, { csrfToken: request.csrfToken() });
@@ -170,11 +167,12 @@ app.post(
   connectEnsureLogin.ensureLoggedIn(),
   async (request, response) => {
     console.log(`Todo created`, request.body);
+    console.log(request.user);
     try {
       await Todo.addTodo({
         title: request.body.title,
         dueDate: request.body.dueDate,
-        completed: false,
+        userId: request.user.id,
       });
       return response.redirect(`/todos`);
     } catch (error) {
