@@ -110,18 +110,6 @@ app.get(
   }
 );
 
-// app.get(`/todos`, async (request, response) => {
-//   console.log(`Todo list`);
-//   const loggedInUser = request.user.id;
-//   try {
-//     const todos = await Todo.getAllTodos(loggedInUser);
-//     return response.status(200).json(todos);
-//   } catch (error) {
-//     console.log(error);
-//     return response.status(422).json({ error: error.message });
-//   }
-// });
-
 app.get(`/signup`, (request, response) => {
   response.render(`signup`, { csrfToken: request.csrfToken() });
 });

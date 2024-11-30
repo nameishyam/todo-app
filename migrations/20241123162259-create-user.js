@@ -11,9 +11,11 @@ module.exports = {
       },
       fname: {
         type: Sequelize.STRING,
+        allowNull: false,
       },
       lname: {
         type: Sequelize.STRING,
+        allowNull: false,
       },
       email: {
         type: Sequelize.STRING,
