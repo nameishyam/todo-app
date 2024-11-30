@@ -12,6 +12,7 @@ const bcrypt = require("bcrypt");
 var csrf = require("csurf");
 var cookieParser = require("cookie-parser");
 const { Todo, User } = require("./models");
+const { nextTick } = require("process");
 
 const saltRounds = 10;
 
@@ -155,42 +156,63 @@ app.post(
   }
 );
 
-app.post(`/todos`, async (request, response) => {
-  console.log(`Todo created`, request.body);
-  try {
-    await Todo.addTodo({
-      title: request.body.title,
-      dueDate: request.body.dueDate,
-      completed: false,
-    });
-    return response.redirect(`/todos`);
-  } catch (error) {
-    console.log(error);
-    return response.status(422).json({ error: error.message });
-  }
+app.get(`/signout`, (request, response, next) => {
+  request.logout((err) => {
+    if (err) {
+      return next(err);
+    }
+    response.redirect(`/`);
+  });
 });
 
-app.put(`/todos/:id/markAsCompleted`, async (request, response) => {
-  console.log(`Todo marked as complete`, request.params.id);
-  try {
-    const todo = await Todo.findByPk(request.params.id);
-    const updatedTodo = await todo.markAsCompleted();
-    return response.status(200).json(updatedTodo);
-  } catch (error) {
-    console.log(error);
-    return response.status(422).json({ error: error.message });
+app.post(
+  `/todos`,
+  connectEnsureLogin.ensureLoggedIn(),
+  async (request, response) => {
+    console.log(`Todo created`, request.body);
+    try {
+      await Todo.addTodo({
+        title: request.body.title,
+        dueDate: request.body.dueDate,
+        completed: false,
+      });
+      return response.redirect(`/todos`);
+    } catch (error) {
+      console.log(error);
+      return response.status(422).json({ error: error.message });
+    }
   }
-});
+);
 
-app.delete(`/todos/:id`, async (request, response) => {
-  console.log(`Todo deleted`, request.params.id);
-  try {
-    await Todo.deleteTodo(request.params.id);
-    return response.json({ success: true });
-  } catch (error) {
-    console.log(error);
-    return response.status(422).json({ error: error.message });
+app.put(
+  `/todos/:id/markAsCompleted`,
+  connectEnsureLogin.ensureLoggedIn(),
+  async (request, response) => {
+    console.log(`Todo marked as complete`, request.params.id);
+    try {
+      const todo = await Todo.findByPk(request.params.id);
+      const updatedTodo = await todo.markAsCompleted();
+      return response.status(200).json(updatedTodo);
+    } catch (error) {
+      console.log(error);
+      return response.status(422).json({ error: error.message });
+    }
   }
-});
+);
+
+app.delete(
+  `/todos/:id`,
+  connectEnsureLogin.ensureLoggedIn(),
+  async (request, response) => {
+    console.log(`Todo deleted`, request.params.id);
+    try {
+      await Todo.deleteTodo(request.params.id);
+      return response.json({ success: true });
+    } catch (error) {
+      console.log(error);
+      return response.status(422).json({ error: error.message });
+    }
+  }
+);
 
 module.exports = app;
