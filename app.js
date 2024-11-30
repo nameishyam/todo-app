@@ -136,6 +136,19 @@ app.post(`/users`, async (request, response) => {
   }
 });
 
+app.get(`/login`, async (request, response) => {
+  response.render(`login`, { csrfToken: request.csrfToken() });
+});
+
+app.post(
+  `/session`,
+  passport.authenticate(`local`, { failureRedirect: `/login` }),
+  (request, response) => {
+    console.log(request.user);
+    response.redirect(`/todos`);
+  }
+);
+
 app.post(`/todos`, async (request, response) => {
   console.log(`Todo created`, request.body);
   try {
