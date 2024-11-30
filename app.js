@@ -8,6 +8,7 @@ const passport = require("passport");
 const connectEnsureLogin = require("connect-ensure-login");
 const localStrategy = require("passport-local");
 const session = require("express-session");
+const flash = require("connect-flash");
 const bcrypt = require("bcrypt");
 var csrf = require("csurf");
 var cookieParser = require("cookie-parser");
@@ -20,6 +21,7 @@ app.use(bodyParser.json());
 app.use(cookieParser("im the ceo, bitch!"));
 app.use(csrf({ cookie: true }));
 app.use(express.static(path.join(__dirname, `public`)));
+app.use(flash());
 
 app.use(
   session({
@@ -29,6 +31,11 @@ app.use(
     },
   })
 );
+
+app.use(function (request, response, next) {
+  response.locals.messages = request.flash();
+  next();
+});
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -41,16 +48,16 @@ passport.use(
     },
     (username, password, done) => {
       User.findOne({ where: { email: username } })
-        .then(async (user) => {
+        .then(async function (user) {
           const result = await bcrypt.compare(password, user.password);
           if (result) {
             return done(null, user);
           } else {
-            return done(`Invalid Password`);
+            return done(null, false, { message: "Invalid password" });
           }
         })
         .catch((error) => {
-          return error;
+          return done(error);
         });
     }
   )
@@ -72,6 +79,7 @@ passport.deserializeUser((id, done) => {
 });
 
 app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, `views`));
 
 app.get(`/`, async (request, response) => {
   if (request.accepts(`html`)) {
@@ -116,7 +124,6 @@ app.get(
 
 app.get(`/signup`, (request, response) => {
   response.render(`signup`, { csrfToken: request.csrfToken() });
-  console.log(request.body.f);
 });
 
 app.post(`/users`, async (request, response) => {
@@ -146,8 +153,11 @@ app.get(`/login`, async (request, response) => {
 
 app.post(
   `/session`,
-  passport.authenticate(`local`, { failureRedirect: `/login` }),
-  (request, response) => {
+  passport.authenticate(`local`, {
+    failureRedirect: `/login`,
+    failureFlash: true,
+  }),
+  function (request, response) {
     console.log(request.user);
     response.redirect(`/todos`);
   }

@@ -8,6 +8,11 @@
   <title>Login page</title>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css" />
+  <style>
+    .slide-in-out {
+      transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+    }
+  </style>
 </head>
 
 <body class="font-sans bg-gradient-to-r from-blue-100 to-purple-100">
@@ -32,6 +37,27 @@
           </button>
         </div>
       </form>
+      <% if(messages && messages.error && messages.error.length > 0)  { %>
+      <div id="error-container" class="slide-in-out transform translate-y-0 opacity-100 mt-4 bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded shadow-md">
+        <ul class="list-disc list-inside">
+          <% for(var i=0; i<messages.error.length; i++) { %>
+          <li class="mb-1">
+            <%= messages.error[i] %>
+          </li>
+          <% } %>
+        </ul>
+      </div>
+      <script>
+        setTimeout(() => {
+          const container = document.getElementById('error-container');
+          container.style.opacity = '0';
+          container.style.transform = 'translateY(-20px)';
+          setTimeout(() => {
+            container.style.display = 'none';
+          }, 500);
+        }, 5000);
+      </script>
+      <% } %>
     </div>
   </div>
 </body>
