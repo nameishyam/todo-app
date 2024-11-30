@@ -163,7 +163,7 @@ app.post(`/todos`, async (request, response) => {
       dueDate: request.body.dueDate,
       completed: false,
     });
-    return response.redirect(`/`);
+    return response.redirect(`/todos`);
   } catch (error) {
     console.log(error);
     return response.status(422).json({ error: error.message });
