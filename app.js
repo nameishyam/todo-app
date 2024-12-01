@@ -201,8 +201,9 @@ app.delete(
   connectEnsureLogin.ensureLoggedIn(),
   async (request, response) => {
     console.log(`Todo deleted`, request.params.id);
+    const loggedInUser = request.user.id;
     try {
-      await Todo.deleteTodo(request.params.id);
+      await Todo.deleteTodo(request.params.id, loggedInUser);
       return response.json({ success: true });
     } catch (error) {
       console.log(error);
