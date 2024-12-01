@@ -53,7 +53,9 @@ Check out the live demo [here](https://todo-app-cxrh.onrender.com/).
 ## Future Enhancements  
 - **User Authentication**: Add login and signup features for enhanced security.  
 - **Task Categories**: Organize tasks into categories or tags.  
-- **Mobile Responsiveness**: Improve UI for a seamless mobile experience.  
+- **Mobile Responsiveness**: Improve UI for a seamless mobile experience.
+- **Email alerts**: Add email alerts for the people who registers into the todo-app.
+- **Add delete account feature**: Add an option to delete the user permenantly from the database.
 
 ## Deployment  
 The application is deployed using:  
