@@ -1,5 +1,3 @@
-/* eslint-disable no-undef */
-
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
@@ -49,6 +47,9 @@ passport.use(
     (username, password, done) => {
       User.findOne({ where: { email: username } })
         .then(async function (user) {
+          if (!user) {
+            return done(null, false, { message: "User does not exist" });
+          }
           const result = await bcrypt.compare(password, user.password);
           if (result) {
             return done(null, user);
@@ -97,9 +98,13 @@ app.get(
   async (request, response) => {
     const loggedInUser = request.user.id;
     const getTodos = await Todo.getAllTodos(loggedInUser);
+    const firstName = request.user.fname;
+    const lastName = request.user.lname;
     if (request.accepts(`html`)) {
       response.render(`todos`, {
         getTodos,
+        firstName,
+        lastName,
         csrfToken: request.csrfToken(),
       });
     } else {
