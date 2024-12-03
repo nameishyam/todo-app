@@ -19,6 +19,9 @@ module.exports = {
       dueDate: {
         type: Sequelize.DATEONLY,
       },
+      dueTime: {
+        type: Sequelize.TIME,
+      },
       completed: {
         type: Sequelize.BOOLEAN,
       },

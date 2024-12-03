@@ -22,10 +22,11 @@ module.exports = (sequelize, DataTypes) => {
         },
       });
     }
-    static addTodo({ title, dueDate, userId }) {
+    static addTodo({ title, dueDate, dueTime, userId }) {
       return this.create({
         title,
         dueDate,
+        dueTime,
         completed: false,
         userId,
       });
@@ -40,7 +41,7 @@ module.exports = (sequelize, DataTypes) => {
     }
 
     displayPrintableTodos() {
-      return `${this.title} - ${this.dueDate} - ${this.completed}`;
+      return `${this.title} - ${this.dueTime} - ${this.dueDate} - ${this.completed}`;
     }
 
     markAsCompleted() {
@@ -53,6 +54,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       title: DataTypes.STRING,
       dueDate: DataTypes.DATEONLY,
+      dueTime: DataTypes.TIME,
       completed: DataTypes.BOOLEAN,
     },
     {

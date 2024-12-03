@@ -65,7 +65,6 @@ passport.use(
 );
 
 passport.serializeUser((user, done) => {
-  console.log(`Serializing user in session`, user.id);
   done(null, user.id);
 });
 
@@ -121,7 +120,6 @@ app.get(`/signup`, (request, response) => {
 
 app.post(`/users`, async (request, response) => {
   const hashedPwd = await bcrypt.hash(request.body.password, saltRounds);
-  console.log(hashedPwd);
   try {
     const user = await User.create({
       fname: request.body.firstName,
@@ -151,7 +149,6 @@ app.post(
     failureFlash: true,
   }),
   function (request, response) {
-    console.log(request.user);
     response.redirect(`/todos`);
   }
 );
@@ -169,12 +166,11 @@ app.post(
   `/todos`,
   connectEnsureLogin.ensureLoggedIn(),
   async (request, response) => {
-    console.log(`Todo created`, request.body);
-    console.log(request.user);
     try {
       await Todo.addTodo({
         title: request.body.title,
         dueDate: request.body.dueDate,
+        dueTime: request.body.dueTime,
         userId: request.user.id,
       });
       return response.redirect(`/todos`);
@@ -189,7 +185,6 @@ app.put(
   `/todos/:id/markAsCompleted`,
   connectEnsureLogin.ensureLoggedIn(),
   async (request, response) => {
-    console.log(`Todo marked as complete`, request.params.id);
     try {
       const todo = await Todo.findByPk(request.params.id);
       const updatedTodo = await todo.markAsCompleted();
@@ -205,7 +200,6 @@ app.delete(
   `/todos/:id`,
   connectEnsureLogin.ensureLoggedIn(),
   async (request, response) => {
-    console.log(`Todo deleted`, request.params.id);
     const loggedInUser = request.user.id;
     try {
       await Todo.deleteTodo(request.params.id, loggedInUser);
