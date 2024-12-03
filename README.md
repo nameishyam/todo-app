@@ -50,8 +50,7 @@ A simple and efficient to-do application designed for students and developers to
 Check out the live demo [here](https://todo-app-cxrh.onrender.com/).  
 
 
-## Future Enhancements  
-- **User Authentication**: Add login and signup features for enhanced security.  
+## Future Enhancements 
 - **Task Categories**: Organize tasks into categories or tags.  
 - **Mobile Responsiveness**: Improve UI for a seamless mobile experience.
 - **Email alerts**: Add email alerts for the people who registers into the todo-app.
