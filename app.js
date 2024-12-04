@@ -163,6 +163,16 @@ app.get(`/signout`, (request, response, next) => {
 });
 
 app.get(
+  `/deleteConformation`,
+  connectEnsureLogin.ensureLoggedIn(),
+  async (request, response) => {
+    await response.render(`delete`, {
+      csrfToken: request.csrfToken(),
+    });
+  }
+);
+
+app.get(
   `/delete`,
   connectEnsureLogin.ensureLoggedIn(),
   async (request, response) => {
