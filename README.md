@@ -50,11 +50,13 @@ A simple and efficient to-do application designed for students and developers to
 Check out the live demo [here](https://todo-app-cxrh.onrender.com/).  
 
 
-## Future Enhancements 
-- []**Task Categories**: Organize tasks into categories or tags.  
-- []**Mobile Responsiveness**: Improve UI for a seamless mobile experience.
-- []**Email alerts**: Add email alerts for the people who registers into the todo-app.
-- [X]**Add delete account feature**: Add an option to delete the user permenantly from the database.
+## Future Enhancements
+
+- [ ] **Task Categories**: Organize tasks into categories or tags.  
+- [ ] **Mobile Responsiveness**: Improve UI for a seamless mobile experience.  
+- [ ] **Email Alerts**: Add email alerts for the people who register into the todo-app.  
+- [x] **Add Delete Account Feature**: Add an option to delete the user permanently from the database.
+
 
 ## Deployment  
 The application is deployed using:  
