@@ -56,6 +56,9 @@ Check out the live demo [here](https://todo-app-cxrh.onrender.com/).
 - [ ] **Mobile Responsiveness**: Improve UI for a seamless mobile experience.  
 - [ ] **Email Alerts**: Add email alerts for the people who register into the todo-app.  
 - [x] **Add Delete Account Feature**: Add an option to delete the user permanently from the database.
+- [ ] **Add Priority for the tasks**: Add an option for the user to prioritize the tasks.
+- [ ] **Add ChatBot**: Add Chat-bot like integration for the application.
+- [ ] **Add description**: Add an option for the user to upload description for the tasks he adds.
 
 
 ## Deployment  
