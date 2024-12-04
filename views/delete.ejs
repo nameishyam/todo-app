@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Delete Account</title>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css" />
 </head>
 
@@ -35,17 +36,7 @@
       </div>
     </div>
   </div>
-
   <%- include('footer.ejs') %>
-
-  <script>
-    document.getElementById('deleteForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      if (confirm('Final confirmation: Are you really sure you want to delete your account? All your data will be permanently lost.')) {
-        this.submit();
-      }
-    });
-  </script>
 </body>
 
 </html>
