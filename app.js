@@ -162,10 +162,37 @@ app.get(`/signout`, (request, response, next) => {
   });
 });
 
+app.get(
+  `/delete`,
+  connectEnsureLogin.ensureLoggedIn(),
+  async (request, response) => {
+    const loggedInUser = request.user.id;
+    const user = await User.findByPk(loggedInUser);
+    const tasks = await Todo.findAll({
+      where: {
+        userId: loggedInUser,
+      },
+    });
+    try {
+      await Promise.all(
+        tasks.map(async (task) => {
+          await task.destroy();
+        })
+      );
+      await user.destroy();
+      response.redirect(`/`);
+    } catch (error) {
+      console.log(error);
+      return response.status(422).json({ error: error.message });
+    }
+  }
+);
+
 app.post(
   `/todos`,
   connectEnsureLogin.ensureLoggedIn(),
   async (request, response) => {
+    console.log(request.user.id);
     try {
       await Todo.addTodo({
         title: request.body.title,
