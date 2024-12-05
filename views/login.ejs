@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="csrf-token" content="<%= csrfToken %>" />
   <title>Login page</title>
+  <link rel="icon" type="image/png" href="image.svg">
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css" />
   <style>
@@ -16,29 +17,29 @@
 </head>
 
 <body class="font-sans bg-gradient-to-r from-blue-100 to-purple-100">
-  <div class="min-h-screen flex flex-col items-center pt-12">
-    <div class="w-full max-w-2xl px-4">
+  <div class="min-h-screen flex flex-col items-center pt-6 sm:pt-12">
+    <div class="w-full max-w-md sm:max-w-lg md:max-w-2xl px-4 sm:px-6">
       <%- include(`header.ejs`) %>
-      <h6 class="text-2xl font-bold text-gray-700 mb-4">Login with Your Details</h6>
+      <h6 class="text-xl sm:text-2xl font-bold text-gray-700 mb-4">Login with Your Details</h6>
       <div id="error-message" class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4"></div>
-      <form class="space-y-4" action="/session" method="post">
+      <form class="space-y-4 md:space-y-6" action="/session" method="post">
         <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
         <div>
-          <label for="email" class="block text-gray-700 font-semibold mb-2">Email</label>
-          <input type="email" name="email" id="email" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Enter Email" required />
+          <label for="email" class="block text-gray-700 font-semibold mb-2 text-sm sm:text-base">Email</label>
+          <input type="email" name="email" id="email" class="w-full p-2 sm:p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-sm sm:text-base" placeholder="Enter Email" required />
         </div>
         <div>
-          <label for="password" class="block text-gray-700 font-semibold mb-2">Password</label>
-          <input type="password" name="password" id="password" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Enter Password" required />
+          <label for="password" class="block text-gray-700 font-semibold mb-2 text-sm sm:text-base">Password</label>
+          <input type="password" name="password" id="password" class="w-full p-2 sm:p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-sm sm:text-base" placeholder="Enter Password" required />
         </div>
         <div class="mt-6">
-          <button type="submit" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
+          <button type="submit" class="w-full p-2 sm:p-3 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-sm sm:text-base">
             Login
           </button>
         </div>
       </form>
       <% if(messages && messages.error && messages.error.length > 0)  { %>
-      <div id="error-container" class="slide-in-out transform translate-y-0 opacity-100 mt-4 bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded shadow-md">
+      <div id="error-container" class="slide-in-out transform translate-y-0 opacity-100 mt-4 bg-red-100 border-l-4 border-red-500 text-red-700 p-3 sm:p-4 rounded shadow-md text-sm sm:text-base">
         <ul class="list-disc list-inside">
           <% for(var i=0; i<messages.error.length; i++) { %>
           <li class="mb-1">

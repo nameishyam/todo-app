@@ -6,6 +6,7 @@
   <meta name="csrf-token" content="<%= csrfToken %>" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Todo Application</title>
+  <link rel="icon" type="image/png" href="image.svg">
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css" />
   <script>
@@ -52,39 +53,39 @@
 </head>
 
 <body class="font-sans bg-gradient-to-r from-blue-100 to-purple-100">
-  <div class="min-h-screen flex flex-col items-center pt-12">
-    <div class="w-full max-w-2xl px-4">
+  <div class="min-h-screen flex flex-col items-center pt-6 sm:pt-12">
+    <div class="w-full max-w-2xl px-2 sm:px-4">
       <%- include(`header.ejs`) %>
-      <div class="bg-white shadow-lg rounded-xl p-6 mb-8 flex justify-between items-center">
-        <h3 class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+      <div class="bg-white shadow-lg rounded-xl p-4 sm:p-6 mb-4 sm:mb-8 flex flex-col sm:flex-row justify-between items-center space-y-3 sm:space-y-0">
+        <h3 class="text-xl sm:text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
           Welcome <%= firstName %>!
         </h3>
-        <div class="justify-end">
-          <a href="/signout" class="px-4 py-2 mr-1 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-lg hover:from-red-600 hover:to-red-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 text-sm font-medium">
+        <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
+          <a href="/signout" class="w-full sm:w-auto px-4 py-2 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-lg hover:from-red-600 hover:to-red-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 text-sm font-medium text-center">
             Signout
           </a>
-          <a href="/deleteConformation" class="px-4 py-2 mr-1 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-lg hover:from-red-600 hover:to-red-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 text-sm font-medium">
+          <a href="/deleteConformation" class="w-full sm:w-auto px-4 py-2 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-lg hover:from-red-600 hover:to-red-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 text-sm font-medium text-center">
             Delete
           </a>
         </div>
       </div>
-      <form class="bg-white shadow-2xl rounded-xl p-8 space-y-6 mb-8" action="/todos" method="post">
+      <form class="bg-white shadow-xl sm:shadow-2xl rounded-xl p-4 sm:p-8 space-y-4 sm:space-y-6 mb-4 sm:mb-8" action="/todos" method="post">
         <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-        <div class="flex flex-col space-y-4">
-          <label class="text-lg font-medium text-gray-700">Add New Task</label>
-          <input type="text" name="title" placeholder="What's next?" required class="px-4 py-3 text-gray-700 border border-gray-300 bg-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200" />
-          <label class="text-lg font-medium text-gray-700">Add Due Date</label>
-          <input type="date" name="dueDate" class="px-4 py-3 text-gray-700 border border-gray-300 bg-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200" />
-          <label class="text-lg font-medium text-gray-700">Add Due Time</label>
-          <input type="time" name="dueTime" class="px-4 py-3 text-gray-700 border border-gray-300 bg-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200" />
-          <label class="text-lg font-medium text-gray-700">Add Description</label>
-          <textarea name="description" placeholder="Add a description" class="px-4 py-3 text-gray-700 border border-gray-300 bg-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"></textarea>
-          <button type="submit" class="mt-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:from-blue-600 hover:to-blue-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transform hover:scale-[1.02]">
+        <div class="flex flex-col space-y-3 sm:space-y-4">
+          <label class="text-base sm:text-lg font-medium text-gray-700">Add New Task</label>
+          <input type="text" name="title" placeholder="What's next?" required class="px-3 sm:px-4 py-2.5 sm:py-3 text-gray-700 border border-gray-300 bg-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200" />
+          <label class="text-base sm:text-lg font-medium text-gray-700">Add Due Date</label>
+          <input type="date" name="dueDate" class="px-3 sm:px-4 py-2.5 sm:py-3 text-gray-700 border border-gray-300 bg-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200" />
+          <label class="text-base sm:text-lg font-medium text-gray-700">Add Due Time</label>
+          <input type="time" name="dueTime" class="px-3 sm:px-4 py-2.5 sm:py-3 text-gray-700 border border-gray-300 bg-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200" />
+          <label class="text-base sm:text-lg font-medium text-gray-700">Add Description</label>
+          <textarea name="description" placeholder="Add a description" class="px-3 sm:px-4 py-2.5 sm:py-3 text-gray-700 border border-gray-300 bg-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 min-h-[100px]"></textarea>
+          <button type="submit" class="mt-2 sm:mt-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg font-medium hover:from-blue-600 hover:to-blue-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transform hover:scale-[1.02]">
             Add Task
           </button>
         </div>
       </form>
-      <div class="mt-8">
+      <div class="mt-4 sm:mt-8">
         <%- include(`todo.ejs`) %>
       </div>
     </div>
