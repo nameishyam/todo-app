@@ -22,9 +22,10 @@ module.exports = (sequelize, DataTypes) => {
         },
       });
     }
-    static addTodo({ title, dueDate, dueTime, userId }) {
+    static addTodo({ title, description, dueDate, dueTime, userId }) {
       return this.create({
         title,
+        description,
         dueDate,
         dueTime,
         completed: false,
@@ -40,10 +41,6 @@ module.exports = (sequelize, DataTypes) => {
       });
     }
 
-    displayPrintableTodos() {
-      return `${this.title} - ${this.dueTime} - ${this.dueDate} - ${this.completed}`;
-    }
-
     markAsCompleted() {
       return this.completed
         ? this.update({ completed: false })
@@ -53,6 +50,7 @@ module.exports = (sequelize, DataTypes) => {
   Todo.init(
     {
       title: DataTypes.STRING,
+      description: DataTypes.TEXT,
       dueDate: DataTypes.DATEONLY,
       dueTime: DataTypes.TIME,
       completed: DataTypes.BOOLEAN,

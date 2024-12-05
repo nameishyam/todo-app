@@ -206,6 +206,7 @@ app.post(
     try {
       await Todo.addTodo({
         title: request.body.title,
+        description: request.body.description,
         dueDate: request.body.dueDate,
         dueTime: request.body.dueTime,
         userId: request.user.id,
