@@ -166,7 +166,7 @@ app.get(
   `/deleteConformation`,
   connectEnsureLogin.ensureLoggedIn(),
   async (request, response) => {
-    await response.render(`delete`, {
+    response.render(`delete`, {
       csrfToken: request.csrfToken(),
     });
   }
@@ -211,6 +211,23 @@ app.post(
         dueTime: request.body.dueTime,
         userId: request.user.id,
       });
+      return response.redirect(`/todos`);
+    } catch (error) {
+      console.log(error);
+      return response.status(422).json({ error: error.message });
+    }
+  }
+);
+
+app.post(
+  `/todos/:id/description`,
+  connectEnsureLogin.ensureLoggedIn(),
+  async (request, response) => {
+    try {
+      const todo = await Todo.findByPk(request.params.id);
+      const updatedTodo = request.body.description;
+      todo.description = updatedTodo;
+      await todo.save();
       return response.redirect(`/todos`);
     } catch (error) {
       console.log(error);
