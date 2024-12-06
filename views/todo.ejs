@@ -7,6 +7,12 @@
   <title>Document</title>
   <link rel="icon" type="image/png" href="image.svg">
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    function toggleDescription(id) {
+      const desc = document.getElementById(`desc-${id}`);
+      desc.classList.toggle('hidden');
+    }
+  </script>
 </head>
 
 <body class="font-sans bg-gray-50">
@@ -45,7 +51,7 @@
             </label>
             <div class="flex-1 min-w-0">
               <div class="flex flex-col space-y-1.5 sm:space-y-2">
-                <span class="text-gray-800 font-medium text-sm sm:text-base break-words <% if (getTodos[i].completed) { %>line-through text-gray-400<% } %>">
+                <span class="text-gray-800 font-medium text-sm sm:text-base break-words cursor-pointer hover:text-blue-600 <% if (getTodos[i].completed) { %>line-through text-gray-400<% } %>" onclick="toggleDescription('<%= getTodos[i].id %>')">
                   <%= getTodos[i].title %>
                 </span>
                 <div class="flex flex-wrap items-center gap-2 sm:gap-4 text-xs sm:text-sm">
@@ -56,7 +62,7 @@
                     <%= formatTime(getTodos[i].dueTime) %>
                   </span>
                 </div>
-                <p class="text-xs sm:text-sm text-gray-600 break-words">
+                <p id="desc-<%= getTodos[i].id %>" class="text-xs sm:text-sm text-gray-600 break-words hidden transition-all duration-200">
                   <%= getTodos[i].description %>
                 </p>
               </div>
@@ -85,7 +91,7 @@
             </label>
             <div class="flex-1 min-w-0">
               <div class="flex flex-col space-y-1.5 sm:space-y-2">
-                <span class="text-gray-800 font-medium text-sm sm:text-base break-words <% if (getTodos[i].completed) { %>line-through text-gray-400<% } %>">
+                <span class="text-gray-800 font-medium text-sm sm:text-base break-words cursor-pointer hover:text-blue-600 <% if (getTodos[i].completed) { %>line-through text-gray-400<% } %>" onclick="toggleDescription('<%= getTodos[i].id %>')">
                   <%= getTodos[i].title %>
                 </span>
                 <div class="flex flex-wrap items-center gap-2 sm:gap-4 text-xs sm:text-sm">
@@ -96,7 +102,7 @@
                     <%= formatTime(getTodos[i].dueTime) %>
                   </span>
                 </div>
-                <p class="text-xs sm:text-sm text-gray-600 break-words">
+                <p id="desc-<%= getTodos[i].id %>" class="text-xs sm:text-sm text-gray-600 break-words hidden transition-all duration-200">
                   <%= getTodos[i].description %>
                 </p>
               </div>
@@ -125,7 +131,7 @@
             </label>
             <div class="flex-1 min-w-0">
               <div class="flex flex-col space-y-1.5 sm:space-y-2">
-                <span class="text-gray-800 font-medium text-sm sm:text-base break-words <% if (getTodos[i].completed) { %>line-through text-gray-400<% } %>">
+                <span class="text-gray-800 font-medium text-sm sm:text-base break-words cursor-pointer hover:text-blue-600 <% if (getTodos[i].completed) { %>line-through text-gray-400<% } %>" onclick="toggleDescription('<%= getTodos[i].id %>')">
                   <%= getTodos[i].title %>
                 </span>
                 <div class="flex flex-wrap items-center gap-2 sm:gap-4 text-xs sm:text-sm">
@@ -136,7 +142,7 @@
                     <%= formatTime(getTodos[i].dueTime) %>
                   </span>
                 </div>
-                <p class="text-xs sm:text-sm text-gray-600 break-words">
+                <p id="desc-<%= getTodos[i].id %>" class="text-xs sm:text-sm text-gray-600 break-words hidden transition-all duration-200">
                   <%= getTodos[i].description %>
                 </p>
               </div>
