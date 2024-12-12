@@ -2,6 +2,7 @@ const request = require("supertest");
 const db = require("../models/index");
 const app = require("../app");
 var cheerio = require("cheerio");
+const passport = require("passport");
 
 let server, agent;
 
@@ -20,7 +21,7 @@ const login = async (agent, username, password) => {
   });
 };
 
-describe("todo test suite", () => {
+describe("Todo operations test suite", () => {
   beforeAll(async () => {
     await db.sequelize.sync({ force: true });
     server = app.listen(4000, () => {});
@@ -30,19 +31,6 @@ describe("todo test suite", () => {
   afterAll(async () => {
     await db.sequelize.close();
     server.close();
-  });
-
-  test("sign up", async () => {
-    let res = await agent.get(`/signup`);
-    const csrfToken = extractCsrfToken(res);
-    res = await agent.post(`/users`).send({
-      fname: "Test",
-      lname: "User",
-      email: "user.a@test.com",
-      password: "12345678",
-      _csrf: csrfToken,
-    });
-    expect(res.statusCode).toBe(302);
   });
 
   test("create a new todo", async () => {
@@ -130,5 +118,80 @@ describe("todo test suite", () => {
     expect(response.statusCode).toBe(200);
     const todos = JSON.parse(response.text);
     expect(todos.length).toBeGreaterThan(0);
+  });
+});
+
+describe("Authentication Test Suite", () => {
+  beforeAll(async () => {
+    await db.sequelize.sync({ force: true });
+    server = app.listen(4000, () => {});
+    agent = request.agent(server);
+  });
+
+  afterAll(async () => {
+    await db.sequelize.close();
+    server.close();
+  });
+
+  test("Sign up before login", async () => {
+    let res = await agent.get("/signup");
+    const csrfToken = extractCsrfToken(res);
+    res = await agent.post("/users").send({
+      fname: "Test",
+      lname: "User",
+      email: "user.a@test.com",
+      password: "12345678",
+      _csrf: csrfToken,
+    });
+    expect(res.statusCode).toBe(302);
+  });
+
+  test("Should allow a user to login successfully", async () => {
+    let res = await agent.get("/login");
+    const csrfToken = extractCsrfToken(res);
+    res = await agent.post("/session").send({
+      email: "user.a@test.com",
+      password: "12345678",
+      _csrf: csrfToken,
+    });
+    expect(res.statusCode).toBe(302);
+    expect(res.header.location).toBe("/todos");
+  });
+
+  test("Should not allow login with wrong password", async () => {
+    let res = await agent.get("/login");
+    const csrfToken = extractCsrfToken(res);
+    res = await agent.post("/session").send({
+      email: "user.a@test.com",
+      password: "wrongpassword",
+      _csrf: csrfToken,
+    });
+    expect(res.statusCode).toBe(302);
+    expect(res.header.location).toBe("/login");
+  });
+
+  test("Should allow a user to logout", async () => {
+    let res = await agent.get("/login");
+    res = await agent.post(
+      "/session",
+      passport.authenticate(`local`, {
+        failureRedirect: `/login`,
+        failureFlash: true,
+      })
+    );
+
+    res = await agent.get("/signout");
+    expect(res.statusCode).toBe(302);
+    expect(res.header.location).toBe("/");
+
+    res = await agent.get("/todos");
+    expect(res.statusCode).toBe(302);
+    expect(res.header.location).toBe("/login");
+  });
+
+  test("Should not allow accessing protected routes without login", async () => {
+    const res = await agent.get("/todos");
+    expect(res.statusCode).toBe(302);
+    expect(res.header.location).toBe("/login");
   });
 });
