@@ -202,7 +202,6 @@ app.post(
   `/todos`,
   connectEnsureLogin.ensureLoggedIn(),
   async (request, response) => {
-    console.log(request.user.id);
     try {
       await Todo.addTodo({
         title: request.body.title,

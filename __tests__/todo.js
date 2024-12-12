@@ -3,6 +3,7 @@ const db = require("../models/index");
 const app = require("../app");
 var cheerio = require("cheerio");
 const passport = require("passport");
+const connectEnsureLogin = require("connect-ensure-login");
 
 let server, agent;
 
@@ -35,13 +36,16 @@ describe("Todo operations test suite", () => {
 
   test("create a new todo", async () => {
     const res = await agent.get("/todos");
-    const csrfToken = extractCsrfToken(res);
-    const response = await agent.post("/todos").send({
-      title: "Buy Milk",
-      dueDate: new Date().toISOString(),
-      completed: false,
-      _csrf: csrfToken,
-    });
+    // const csrfToken = extractCsrfToken(res);
+    const response = await agent
+      .post("/todos", connectEnsureLogin.ensureLoggedIn())
+      .send({
+        title: "Buy Milk",
+        description: "Buy milk from the store",
+        dueDate: new Date().toISOString(),
+        dueTime: "10:00",
+        userId: 1,
+      });
     expect(response.statusCode).toBe(302);
   });
 
