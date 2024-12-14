@@ -16,7 +16,7 @@ const saltRounds = 10;
 
 app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(cookieParser("im the ceo, bitch!"));
+app.use(cookieParser("Shyam here!"));
 app.use(csrf({ cookie: true }));
 app.use(express.static(path.join(__dirname, `public`)));
 app.use(flash());
