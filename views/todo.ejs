@@ -85,7 +85,7 @@
                       </svg>
                     </button>
                   </div>
-                  <form id="edit-form-<%= getTodos[i].id %>" action="/todos/<%= getTodos[i].id %>/description" method="post" class="flex gap-2 hidden mt-2">
+                  <form id="edit-form-<%= getTodos[i].id %>" action="/todos/<%= getTodos[i].id %>/description" method="post" class="flex gap-2 mt-2">
                     <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                     <textarea name="description" class="flex-1 text-xs sm:text-sm border rounded px-2 py-1 resize-none"></textarea>
                     <button type="submit" class="text-xs sm:text-sm bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600 flex-shrink-0">
@@ -142,7 +142,7 @@
                       </svg>
                     </button>
                   </div>
-                  <form id="edit-form-<%= getTodos[i].id %>" action="/todos/<%= getTodos[i].id %>/description" method="post" class="flex gap-2 hidden mt-2">
+                  <form id="edit-form-<%= getTodos[i].id %>" action="/todos/<%= getTodos[i].id %>/description" method="post" class="flex gap-2 mt-2">
                     <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                     <input type="text" name="description" value="<%= getTodos[i].description %>" class="flex-1 text-xs sm:text-sm border rounded px-2 py-1">
                     <button type="submit" class="text-xs sm:text-sm bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600">
@@ -199,7 +199,7 @@
                       </svg>
                     </button>
                   </div>
-                  <form id="edit-form-<%= getTodos[i].id %>" action="/todos/<%= getTodos[i].id %>/description" method="post" class="flex gap-2 hidden mt-2">
+                  <form id="edit-form-<%= getTodos[i].id %>" action="/todos/<%= getTodos[i].id %>/description" method="post" class="flex gap-2 mt-2">
                     <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                     <input type="text" name="description" value="<%= getTodos[i].description %>" class="flex-1 text-xs sm:text-sm border rounded px-2 py-1">
                     <button type="submit" class="text-xs sm:text-sm bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600">
